@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor con Voz</title>
+    <link rel="stylesheet" href="style.css">
+    
+ <!-- Enlace para fuentes de google -->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&displayfamily=Amatic+SC:wght@700&family=Caveat:wght@700&family=Dancing+Script:wght@700&family=Lobster&family=Metal+Mania&family=Yellowtail& family=Permanent+Marker&family=Piedra&family=Sriracha&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+    
+    
+    <div class="translator-container">
+        <h2><u><i><img src="img/Juanjo.ico" class="ico" width="35">Traductor de Idiomas</i></u></h2>
+
+       <div class="controls">
+            <div class="language-select">
+                <label for="sourceLang">De:</label>
+                <select id="sourceLang">
+                    <option value="en-US">Inglés (US)</option>
+                    <option value="es-ES" selected>Español (España)</option>
+                    <option value="bg-BG">Bulgaro</option>
+                    <option value="fr-FR">Francés (Francia)</option>
+                    <option value="de-DE">Alemán (Alemania)</option>
+                    <option value="it-IT">Italiano (Italia)</option>
+                    <option value="pt-BR">Portugués (Brasil)</option>
+                    <option value="ja-JP">Japonés</option>
+                    <option value="ko-KR">Coreano</option>
+                    <option value="zh-CN">Chino (Simplificado)</option>
+                    <option value="la-LA">Latin</option>
+                    <!-- Asegúrate que los códigos de idioma sean compatibles con Web Speech API y MyMemory -->
+                </select>
+            </div>
+
+            <button id="swapLanguages" title="Intercambiar Idiomas">⇄</button>
+
+            <div class="language-select">
+                <label for="targetLang">A:</label>
+                <select id="targetLang">
+                    <option value="en-US" selected>Inglés (US)</option>
+                    <option value="es-ES">Español (España)</option>
+                    <option value="bg-BG">Bulgaro</option>
+                    <option value="fr-FR">Francés (Francia)</option>
+                    <option value="de-DE">Alemán (Alemania)</option>
+                    <option value="it-IT">Italiano (Italia)</option>
+                    <option value="pt-BR">Portugués (Brasil)</option>
+                    <option value="ja-JP">Japonés</option>
+                    <option value="ko-KR">Coreano</option>
+                    <option value="zh-CN">Chino (Simplificado)</option>
+                    <option value="la-LA">Latin</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="text-areas">
+            <div class="textarea-group input-group">
+                <textarea id="inputText" placeholder="Escribe o dicta el texto a traducir..."></textarea>
+                <button id="startRecognition" title="Empezar a Escuchar">🎤</button>
+            </div>
+            <div class="textarea-group output-group">
+                <textarea id="outputText" placeholder="Traducción..." readonly></textarea>
+                <button id="copyOutput" title="Copiar Traducción">📋</button>
+                <button id="speakOutput" title="Escuchar Traducción">🔊</button>
+            </div>
+        </div>
+
+        <button id="translateButton">Traducir Texto Escrito</button>
+        <p id="statusMessage"></p>
+        <p id="micStatus" class="mic-status"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
