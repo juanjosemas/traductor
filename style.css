@@ -28,13 +28,15 @@ body {
     max-width: 700px; /* Ancho máximo para mantener la legibilidad */
 }
 
-/* Estilos para el título principal de la aplicación (originalmente h1, ahora h2) */
-h2 { /* Selector actualizado de h1 a h2 para coincidir con el HTML */
+/* Estilos para el título principal de la aplicación (h2) */
+h2 {
     text-align: center; /* Centra el texto del título */
     color: #333; /* Color oscuro para el texto del título */
     margin-bottom: 20px; /* Espacio debajo del título */
-    /* flex-shrink: 0;  puede no ser necesario para un h2 simple */
     font-size: 1.8em; /* Tamaño del título, ajusta según sea necesario */
+    /* El estilo <u><i> del HTML se puede manejar con CSS si se prefiere: */
+    /* text-decoration: underline; */
+    /* font-style: italic; */
 }
 
 /* Estilos para el icono/logo dentro del título */
@@ -130,6 +132,7 @@ textarea {
     width: 100%; /* Ancho completo dentro de su contenedor */
     height: 150px; /* Altura fija inicial */
     padding: 10px; /* Espaciado interno */
+    padding-bottom: 45px; /* Dejar espacio en la parte inferior para los botones. Aumenta si los botones son más grandes o hay más */
     border: 1px solid #ddd; /* Borde sutil */
     border-radius: 4px; /* Bordes redondeados */
     resize: vertical; /* Permite redimensionar verticalmente */
@@ -141,7 +144,6 @@ textarea {
 /* Estilos específicos para el área de texto de salida (traducción) */
 #outputText {
     background-color: #f9f9f9; /* Fondo ligeramente gris para diferenciarlo */
-    font-family: Piedra, cursive; /* Asegura la misma fuente (redundante si textarea ya la tiene) */
 }
 
 /* Estilos base para los botones de icono DENTRO de los .textarea-group */
@@ -161,47 +163,39 @@ textarea {
     color: #0056b3; /* Iconos azul más oscuro al pasar el ratón */
 }
 
-/* Estilos específicos para el botón de reconocimiento de voz (micrófono) */
+/* Botón de micrófono */
 #startRecognition {
     bottom: 10px; /* Posicionado abajo */
     right: 10px; /* Posicionado a la derecha */
 }
-
-/* Estilo para el botón de micrófono cuando está escuchando */
 #startRecognition.listening {
-    color: #dc3545; /* Color rojo para indicar que está activo */
+    color: #dc3545; /* Rojo cuando escucha */
 }
 
-/* Estilos específicos para el botón de copiar traducción */
+/* Botones de copiar y hablar (AHORA ABAJO) */
 #copyOutput {
-    top: 10px; /* Posicionado arriba */
-    right: 45px; /* A la derecha, dejando espacio para el botón de hablar */
+    bottom: 10px; /* Posicionado abajo */
+    right: 50px;  /* A la derecha, dejando espacio para el botón de hablar (el que está más a la derecha) */
     font-size: 1.2em; /* Icono ligeramente más pequeño */
     color: #6c757d; /* Color gris para el icono */
 }
-
-/* Estilos para el botón de copiar al pasar el ratón */
 #copyOutput:hover {
     color: #5a6268; /* Gris más oscuro al pasar el ratón */
 }
 
-/* Estilos específicos para el botón de escuchar traducción (altavoz) */
 #speakOutput {
-    top: 10px; /* Posicionado arriba */
+    bottom: 10px; /* Posicionado abajo */
     right: 10px; /* A la derecha del todo */
     font-size: 1.2em; /* Icono ligeramente más pequeño */
     color: #6c757d; /* Color gris para el icono */
 }
-
-/* Estilos para el botón de altavoz al pasar el ratón */
 #speakOutput:hover {
     color: #5a6268; /* Gris más oscuro al pasar el ratón */
 }
-
-/* Estilo para el botón de altavoz cuando está reproduciendo voz */
 #speakOutput.speaking {
     color: #28a745; /* Color verde para indicar que está activo */
 }
+
 
 /* Estilos para el botón principal de "Traducir Texto Escrito" */
 #translateButton {
@@ -276,17 +270,17 @@ textarea {
         flex-direction: column; /* Cambia la dirección de flex a columna */
     }
 
-    /* Ajustes de posición para botones de icono en móviles */
+    /* Ajustes de posición para botones de icono en móviles (todos abajo) */
     #startRecognition {
         bottom: 8px;
         right: 8px;
     }
     #copyOutput {
-        top: 8px;
-        right: 40px;
+        bottom: 8px;
+        right: 45px; /* Ajustar si es necesario para que no se superpongan */
     }
     #speakOutput {
-        top: 8px;
+        bottom: 8px;
         right: 8px;
     }
 }
