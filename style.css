@@ -95,8 +95,8 @@ select {
 
 /* Estilos para el botón de intercambiar idiomas */
 #swapLanguages {
-    padding: 8px 12px;
-    background-color: #007bff;
+    padding: 1px 15px;
+    background-color: green ;/*#007bff;*/
     color: white;
     border: none;
     border-radius: 15px;
@@ -196,15 +196,16 @@ textarea {
     display: block;
     width: auto;
     padding: 8px 12px;
-    background-color: #28a745;
+    background-color: black; 
     color: white;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.3em;
     text-align: center;
     margin: auto;
     transition: background-color 0.3s ease;
+    font-family: Yellowtail;
 }
 #translateButton:hover {
     background-color: #218838;
