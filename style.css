@@ -13,7 +13,7 @@ body {
     box-sizing: border-box;
 
     /* Propiedades para la imagen de fondo */
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('img/nubes.jpg');
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('img/nubes.jpg');
     background-repeat: no-repeat; /* No repetir la imagen */
     background-position: center center; /* Centrar la imagen horizontal y verticalmente */
     background-attachment: fixed; /* La imagen de fondo se queda fija al hacer scroll */
