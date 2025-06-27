@@ -96,8 +96,8 @@ select {
 /* Estilos para el botón de intercambiar idiomas */
 #swapLanguages {
     padding: 1px 15px;
-    background-color: green ;/*#007bff;*/
-    color: white;
+    background-color: red;
+    color: black;
     border: none;
     border-radius: 15px;
     cursor: pointer;
