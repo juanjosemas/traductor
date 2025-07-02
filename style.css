@@ -23,7 +23,7 @@ body {
 /* Contenedor principal de la aplicación traductora */
 .translator-container {
     background-color: rgba(255, 255, 255, 0); /* Blanco con 0% de opacidad */
-    padding: 25px;
+    padding: 1px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     width: 100%;
