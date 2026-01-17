@@ -55,13 +55,17 @@
 
         <div class="text-areas">
             <div class="textarea-group input-group">
-                <textarea id="inputText" placeholder="Escribe o dicta el texto a traducir..."></textarea>
+                <textarea id="inputText" placeholder="Escribe o dicta el texto a traducir..." maxlength="1000"></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/1000</div>
                 <button id="startRecognition" title="Empezar a Escuchar">🎤</button>
             </div>
             <div class="textarea-group output-group">
                 <textarea id="outputText" placeholder="Traducción..." readonly></textarea>
-                <button id="copyOutput" title="Copiar Traducción">📋</button>
-                <button id="speakOutput" title="Escuchar Traducción">🔊</button>
+                <div class="output-actions">
+                    <button id="copyOutput" title="Copiar Traducción">📋</button>
+                    <button id="shareOutput" title="Compartir Traducción">🔗</button>
+                    <button id="speakOutput" title="Escuchar Traducción">🔊</button>
+                </div>
             </div>
         </div>
 

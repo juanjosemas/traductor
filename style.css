@@ -141,6 +141,16 @@ textarea {
     /* color: #333; */
 }
 
+/* Contador de caracteres */
+.char-counter {
+    position: absolute;
+    bottom: 45px;
+    left: 15px;
+    font-size: 0.8em;
+    color: #555;
+    font-family: sans-serif;
+}
+
 /* Estilos específicos para el área de texto de salida (traducción) */
 #outputText {
     background-color: #f9f9f9; /* O hazlo semitransparente como el input si prefieres */
@@ -156,41 +166,49 @@ textarea {
     font-size: 1.5em;
     padding: 5px;
     color: #007bff;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 .textarea-group button:hover {
     color: #0056b3;
 }
 
-/* Botón de micrófono */
+/* Botón de micrófono y animación de pulso */
 #startRecognition {
     bottom: 10px;
     right: 10px;
 }
 #startRecognition.listening {
     color: #dc3545;
+    animation: pulse-red 1.5s infinite;
+    border-radius: 50%;
 }
 
-/* Botones de copiar y hablar */
-#copyOutput {
-    bottom: 10px;
-    right: 50px;
-    font-size: 1.2em;
-    color: #6c757d;
-}
-#copyOutput:hover {
-    color: #5a6268;
+@keyframes pulse-red {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
 }
 
-#speakOutput {
+/* Grupo de botones en la salida */
+.output-actions {
+    position: absolute;
     bottom: 10px;
     right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+/* Ajustamos posiciones individuales para que no se solapen */
+.output-actions button {
+    position: static; /* Anulamos el absolute del padre para usar el flex del contenedor */
     font-size: 1.2em;
     color: #6c757d;
 }
-#speakOutput:hover {
+
+#copyOutput:hover, #shareOutput:hover {
     color: #5a6268;
 }
+
 #speakOutput.speaking {
     color: #28a745;
 }
@@ -280,9 +298,6 @@ textarea {
     .text-areas {
         flex-direction: column;
     }
-    #startRecognition { bottom: 8px; right: 8px; }
-    #copyOutput { bottom: 8px; right: 45px; }
-    #speakOutput { bottom: 8px; right: 8px; }
     
     /* En móviles mantenemos la misma estructura centrada */
     #translateButton, #clearButton { 
