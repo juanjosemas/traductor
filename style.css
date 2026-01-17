@@ -36,6 +36,7 @@ h2 {
     color: black;
     margin-bottom: 10px;
     font-size: 2em;
+    font-family: Lobster;
 }
 
 /* Estilos para el icono/logo dentro del título */
@@ -64,6 +65,8 @@ h2 {
     align-items: center;
     margin-bottom: 1px;
     gap: 0;
+    width: 60%;
+    margin-left: 10%;    
 }
 
 /* Estilos para cada grupo de selección de idioma (label + select)  */
@@ -78,6 +81,7 @@ h2 {
 .language-select label {
     font-weight: bold;
     color: black;
+    font-family: Piedra;
 }
 
 /* Estilos para los elementos select (desplegables de idioma) */
@@ -124,7 +128,7 @@ select {
 /* Estilos para los elementos textarea (entrada y salida de texto) */
 textarea {
     width: 100%;
-    height: 150px;
+    height: 140px;  
     padding: 10px;
     padding-bottom: 45px;
     border: 1px solid #ddd;
