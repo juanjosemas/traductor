@@ -29,7 +29,6 @@
                     <option value="ko-KO">Coreano</option>
                     <option value="zh-ZH">Chino</option>
                     <option value="la-LA">Latin</option>
-                    <!-- Asegúrate que los códigos de idioma sean compatibles con Web Speech API y MyMemory -->
                 </select>
             </div>
 
@@ -62,6 +61,7 @@
             <div class="textarea-group output-group">
                 <textarea id="outputText" placeholder="Traducción..." readonly></textarea>
                 <div class="output-actions">
+                    <button id="favOutput" title="Guardar en Favoritos">⭐</button>
                     <button id="copyOutput" title="Copiar Traducción">📋</button>
                     <button id="shareOutput" title="Compartir Traducción">🔗</button>
                     <button id="speakOutput" title="Escuchar Traducción">🔊</button>
@@ -69,12 +69,24 @@
             </div>
         </div>
 
-        <!-- Contenedor para agrupar, centrar y apilar los botones -->
         <div class="button-container">
             <button id="translateButton">Traducir Texto</button> 
             <button id="clearButton">Limpiar Texto</button>
         </div>
+
+        <!-- Sección de Historial y Favoritos (Movida arriba cerca de los botones) -->
+        <div class="storage-section">
+            <div class="storage-header">
+                <button id="showHistory" class="active">Historial</button>
+                <button id="showFavorites">Favoritos</button>
+            </div>
+            <div id="storageList" class="storage-list">
+                <!-- Se carga dinámicamente -->
+            </div>
+            <button id="clearStorage" class="clear-storage-btn">Borrar Todo</button>
+        </div>
         
+        <!-- Mensajes de estado al final -->
         <p id="statusMessage"></p>
         <p id="micStatus" class="mic-status"></p>
     </div>
