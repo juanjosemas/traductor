@@ -195,25 +195,47 @@ textarea {
     color: #28a745;
 }
 
-/* Estilos para el botón principal de "Traducir Texto Escrito" */
-#translateButton {
+/* Contenedor para alinear los botones uno encima del otro y en el centro */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Apilar verticalmente */
+    align-items: center;    /* Centrar horizontalmente */
+    gap: 10px;              /* Espacio entre botones */
+    margin-top: 10px;
+}
+
+/* Estilos para el botón principal de "Traducir" y el botón de "Limpiar" */
+#translateButton, #clearButton {
     display: block;
-    width: auto;
-    padding: 8px 12px;
-    background-color: black; 
-    color: white;
+    width: 140px; /* Ancho más pequeño */
+    padding: 5px 10px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 1.3em;
+    font-size: 1.5em; /* Texto un poco más pequeño */
     text-align: center;
-    margin: auto;
     transition: background-color 0.3s ease;
     font-family: Yellowtail;
+}
+
+/* Colores específicos para el botón de Traducir */
+#translateButton {
+    background-color: black; 
+    color: white;
 }
 #translateButton:hover {
     background-color: #218838;
 }
+
+/* Colores específicos para el botón de Limpiar */
+#clearButton {
+    background-color: #6c757d; /* Color gris */
+    color: white;
+}
+#clearButton:hover {
+    background-color: #c82333; /* Rojo al pasar el ratón */
+}
+
 #translateButton:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -261,4 +283,9 @@ textarea {
     #startRecognition { bottom: 8px; right: 8px; }
     #copyOutput { bottom: 8px; right: 45px; }
     #speakOutput { bottom: 8px; right: 8px; }
+    
+    /* En móviles mantenemos la misma estructura centrada */
+    #translateButton, #clearButton { 
+        width: 150px; 
+    }
 }

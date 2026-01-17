@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sourceLang = document.getElementById('sourceLang');
     const targetLang = document.getElementById('targetLang');
     const translateButton = document.getElementById('translateButton');
+    const clearButton = document.getElementById('clearButton'); // Nuevo botón
     const swapLanguagesButton = document.getElementById('swapLanguages');
     const copyOutputButton = document.getElementById('copyOutput');
     const statusMessage = document.getElementById('statusMessage');
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verificar que todos los elementos principales existen
     if (!inputText || !outputText || !sourceLang || !targetLang || !translateButton ||
         !swapLanguagesButton || !copyOutputButton || !statusMessage || !micStatus ||
-        !startRecognitionButton || !speakOutputButton) {
+        !startRecognitionButton || !speakOutputButton || !clearButton) {
         console.error("Error: Uno o más elementos HTML no fueron encontrados. Revisa los IDs en tu HTML y JavaScript.");
         if (statusMessage) statusMessage.textContent = "Error: Faltan elementos de la interfaz. Revisa la consola.";
         return; // Detener la ejecución si faltan elementos cruciales
@@ -231,8 +232,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Función para limpiar campos
+    function clearFields() {
+        inputText.value = '';
+        outputText.value = '';
+        statusMessage.textContent = '';
+        micStatus.textContent = '';
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+    }
+
     // Event Listeners para botones principales
     translateButton.addEventListener('click', translateText);
+    clearButton.addEventListener('click', clearFields);
     swapLanguagesButton.addEventListener('click', swapLanguages);
     copyOutputButton.addEventListener('click', copyOutputText);
 
@@ -240,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputText.addEventListener('keypress', (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
+            inputText.blur(); // Hace que el teclado desaparezca en móviles
             translateText();
         }
     });
