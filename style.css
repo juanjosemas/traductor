@@ -281,9 +281,11 @@ textarea {
     font-size: 1.2em;
     background: red;
     border: 1px solid #999;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     color: black;
+    font-style: italic;
+    font-family: Piedra;
 }
 
 #statusMessage {
