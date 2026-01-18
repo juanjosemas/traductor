@@ -190,6 +190,8 @@ textarea {
     border: 1px solid rgba(255,255,255,0.3);
     width: 100%;
     box-sizing: border-box;
+    font-family: Lobster;
+    font-size: 15px;
 }
 
 .storage-header {
