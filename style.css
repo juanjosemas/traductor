@@ -1,19 +1,21 @@
 /* style.css - Hoja de estilos para el Traductor de Idiomas con Voz */
 
-/* Estilos generales para el cuerpo de la página (body) */
+/* --- 1. CONFIGURACIÓN DEL FONDO Y CUERPO --- */
 body {
+    /* Fuente principal */
     font-family: Caveat, sans-serif;
-    background-color: #f4f4f4; /* Color de fondo de respaldo si la imagen no carga */
+    background-color: #f4f4f4;
+    /* Flexbox: Centra el contenido horizontalmente (justify) y lo pega arriba (align) */
     display: flex;
     justify-content: center;
-    /* Alineamos al principio (arriba) para permitir el scroll natural de toda la página */
     align-items: flex-start; 
     min-height: 100vh;
     margin: 0;
-    padding: 20px 0; /* Padding ajustado */
+    /* Espaciado arriba y abajo de la pantalla */
+    padding: 15px 0; 
     box-sizing: border-box;
 
-    /* Propiedades para la imagen de fondo original */
+    /* Imagen de fondo fija que no se mueve al hacer scroll */
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('img/nubes.jpg');
     background-repeat: no-repeat;
     background-position: center center;
@@ -21,32 +23,27 @@ body {
     background-size: cover;
 }
 
-/* Contenedor principal de la aplicación traductora */
+/* --- 2. CONTENEDOR PRINCIPAL (ANCHO DE PANTALLA) --- */
+/* Definimos que el contenido ocupe casi todo el ancho sin efectos visuales de caja */
 .translator-container {
-    background-color: rgba(255, 255, 255, 0); 
-    padding: 1px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 700px;
+    width: 96%; 
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Estilos para el título principal de la aplicación (h2) */
+/* --- 3. TÍTULO E ICONO --- */
 h2 {
     text-align: center;
     color: black;
-    margin-bottom: 10px;
-    font-size: 2em;
+    margin-bottom: 20px;
+    font-size: 2.2em;
     font-family: Lobster;
 }
 
-/* Estilos para el icono/logo dentro del título */
 .ico {
     border-radius: 50%;
-    margin: 0 5px 15px -50px;
-    animation-name: logo;
-    animation-duration: 3s;
-    transition: all 0.5s ease-in-out;
+    margin: 0 10px 10px -10px;
+    animation: logo 3s ease-in-out;
     background-color: black;
     border: 2px solid red;
     box-shadow: 0 0 0 3px black;
@@ -58,266 +55,259 @@ h2 {
     to { opacity: 1; transform: scale(1) rotate(1440deg); }
 }
 
-/* Contenedor para los selectores de idioma y el botón de intercambio */
+/* --- 4. CONTROLES DE IDIOMA --- */
+/* Contenedor que alinea los dos selectores y la flecha de cambio */
 .controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    gap: 0;
-    width: 60%;
+    margin-bottom: 20px;
+    gap: 10px;
 }
 
-/* Estilos para cada grupo de selección de idioma (label + select)  */
 .language-select {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 25px;
-    width: 60%;
-    padding: 5px;
-    margin-left: -80px;
+    flex: 1; /* Hace que el selector use todo el espacio disponible */
 }
 
-/* Estilos para las etiquetas (labels) de los selectores de idioma, (de, a)*/
 .language-select label {
     font-weight: bold;
-    color: black;
     font-family: Piedra;
+    font-size: 1.2em;
+    margin-left: 18%;
 }
 
-/* Estilos para los elementos select (desplegables de idioma) */
 select {
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 40px;
-    background-color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    flex-grow: 1;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 50%;
     font-family: Lobster, cursive;
-    font-size: 18px;
+    font-size: 16px;
+    outline: none;
 }
 
-/* Estilos para el botón de intercambiar idiomas */
+/* Botón de flechas (Intercambiar) */
 #swapLanguages {
-    padding: 1px 15px;
+    padding: 0px;
+    width: 50px; 
+    height: 40px; 
+    font-weight: 900;
+    font-size: 25px;
     background-color: red;
     color: black;
-    border: 1px solid black;
-    border-radius: 15px;
+    border: 2px solid black;
+    border-radius: 40%;
     cursor: pointer;
-    font-size: 1.3em;
-    transition: background-color 0.3s ease;
-    font-family: Piedra;
-    margin-left: -50px;
-    font-weight: bold;
 }
 
-/* Contenedor para las áreas de texto (entrada y salida) */
+/* --- 5. ÁREAS DE TEXTO (LAS CAJAS DE ENTRADA Y SALIDA) --- */
 .text-areas {
     display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .textarea-group {
     flex: 1;
-    position: relative;
+    position: relative; /* Para que los botones se posicionen dentro de la caja */
+    width: 100%;
 }
 
 textarea {
+    /* Ocupa el 100% del ancho del grupo */
     width: 100%;
-    height: 140px;  
-    padding: 10px;
-    padding-bottom: 45px;
-    border: 1px solid #ddd;
+    height: 180px;  
+    padding: 15px;
+    padding-bottom: 60px; /* Espacio para que los botones de abajo no tapen el texto */
+    border: 1px solid rgba(255,255,255,0.4);
     border-radius: 20px;
-    resize: vertical;
-    box-sizing: border-box;
-    font-size: 1.2em;
+    resize: none;
+    box-sizing: border-box; /* Muy importante: incluye el padding en el ancho total */
+    font-size: 1.3em;
     font-family: Piedra, cursive;
     background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    outline: none;
 }
 
-/* Contador de caracteres */
-.char-counter {
-    position: absolute;
-    bottom: 45px;
-    left: 15px;
-    font-size: 0.8em;
-    color: #555;
-    font-family: sans-serif;
-}
-
-/* Estilos base para los botones de icono DENTRO de los .textarea-group */
+/* --- 6. BOTONES DENTRO DE LAS CAJAS --- */
 .textarea-group button {
     position: absolute;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    padding: 5px;
-    color: #007bff;
-    transition: all 0.3s ease;
-}
-
-/* Botón de micrófono y animación de pulso */
-#startRecognition {
-    bottom: 10px;
-    right: 10px;
-}
-#startRecognition.listening {
-    color: #dc3545;
-    animation: pulse-red 1.5s infinite;
+    background: white;
     border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    bottom: 10px;
 }
 
-@keyframes pulse-red {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
-}
+#startRecognition { right: 10px; color: #007bff; }
+#startRecognition.listening { color: #dc3545; animation: pulse-red 1.5s infinite; }
 
-/* Grupo de botones en la salida */
 .output-actions {
     position: absolute;
     bottom: 10px;
     right: 10px;
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
-.output-actions button {
-    position: static; 
-    font-size: 1.2em;
-    color: #6c757d;
-}
+/* Al ponerlos en modo 'static', se alinean uno tras otro dentro del contenedor de arriba */
+.output-actions button { position: static; color: #555; }
 
-#favOutput.active {
-    color: #ffc107;
-    transform: scale(1.2);
-}
-
-#speakOutput.speaking {
-    color: #28a745;
-}
-
-/* Contenedor para alinear los botones uno encima del otro y en el centro */
+/* --- 7. BOTONES PRINCIPALES (TRADUCIR / LIMPIAR) --- */
 .button-container {
     display: flex;
     flex-direction: column; 
     align-items: center;    
-    gap: 10px;              
+    gap: 15px;              
 }
 
 #translateButton, #clearButton {
-    display: block;
-    width: 140px; 
-    padding: 5px 10px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.5em; 
-    text-align: center;
-    transition: background-color 0.3s ease;
+    width: 280px; /* Un poco más anchos para el P30 Pro */
+    padding: 12px;
+    border-radius: 40px;
+    font-size: 1.6em; 
     font-family: Yellowtail;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
 #translateButton { background-color: black; color: white; }
-#translateButton:hover { background-color: #218838; }
-
 #clearButton { background-color: #6c757d; color: white; }
-#clearButton:hover { background-color: #c82333; }
 
-#translateButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Estilos para el historial y favoritos */
+/* --- 8. SECCIÓN DE HISTORIAL Y FAVORITOS --- */
 .storage-section {
-    margin-top: 20px; 
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 15px;
-    padding: 10px;
-    font-family: 'Open Sans', sans-serif;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.3);
+    width: 100%;
+    box-sizing: border-box;
 }
+
 .storage-header {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 8px;
+    gap: 40px;
+    margin-bottom: 20px;
 }
+
 .storage-header button {
     background: none;
     border: none;
     font-family: Lobster;
-    font-size: 1.1em; /* Un poco más pequeño */
-    cursor: pointer;
-    color: #555;
-    border-bottom: 2px solid transparent;
+    font-size: 1.2em;
+    color: #444;
 }
+
 .storage-header button.active {
     color: black;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid black;
 }
 
-/* Lista que crece hacia abajo sin scroll interno */
+#searchStorage {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
 .storage-list {
-    max-height: none; 
-    overflow-y: visible;
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Menos espacio entre cajas */
+    gap: 10px;
 }
 
-/* Cajas de historial más pequeñas y compactas */
+/* CAJA INDIVIDUAL DEL HISTORIAL */
 .storage-item {
     background: rgba(255, 255, 255, 0.6);
-    padding: 5px 12px; /* Padding reducido significativamente */
-    border-radius: 8px;
+    padding: 2px 20px; 
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85em; /* Fuente más pequeña */
-    cursor: pointer;
-    transition: background 0.2s;
-    border: 1px solid rgba(0,0,0,0.05);
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.2s;
 }
-.storage-item:hover { background: rgba(255, 255, 255, 0.9); }
-.storage-item span { font-style: italic; color: #444; font-size: 0.95em; }
 
+.storage-item:hover { 
+    background: rgba(255, 255, 255, 0.9); 
+}
+
+/* Texto dentro de la caja del historial */
+.item-text { 
+    flex-grow: 1; 
+}
+
+.item-text b { 
+    color: #000; 
+    font-size: 1.4em; 
+    display: block; 
+}
+
+.item-text span { 
+    color: #444; 
+    font-style: italic; 
+}
+
+/* Iconos de borrar y copiar de cada item */
+.item-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.item-actions button {
+    background: none;
+    border: none;
+    font-size: 1.4em;
+    opacity: 0.6;
+}
+
+/* Botón rojo de borrar lista */
 .clear-storage-btn {
     display: block;
-    margin: 10px auto 0;
-    font-size: 1em; /* Más pequeño */
-    background: red;
-    border: 1px solid #999;
-    border-radius: 15px;
-    cursor: pointer;
+    margin: 20px auto 0;
+    padding: 10px 40px;
+    background: #ff4d4d;
     color: black;
-    font-style: italic;
+    border-radius: 20px;
     font-family: Piedra;
-    padding: 2px 15px;
-}
-
-#statusMessage {
-    text-align: center;
-    margin-top: 10px;
-    color: #dc3545;
-    min-height: 1.2em;
-}
-
-.mic-status {
-    text-align: center;
-    margin-top: 5px;
-    color: #007bff;
+    font-size: 20px;
     font-style: italic;
-    min-height: 1.2em;
+    border: 1px solid black;
 }
 
-/* Ajustes Responsivos */
-@media (max-width: 600px) {
-    .controls { flex-direction: column; width: 100%; margin-left: 0; }
-    .text-areas { flex-direction: column; }
-    #translateButton, #clearButton { width: 150px; }
+/* --- 9. AJUSTES PARA MÓVILES (Huawei P30 Pro) --- */
+@media (max-width: 800px) {
+    /* Pone una caja debajo de la otra en el móvil ocupando todo el ancho */
+    .text-areas { 
+        flex-direction: column; 
+    }
+    
+    /* Apila los selectores de idioma y los hace anchos */
+    .controls { 
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+ 
+    .language-select { 
+        width: 100%;
+        margin-left: 0;
+    }
+ 
+    #swapLanguages { 
+        align-self: center; 
+        margin: 5px 0; 
+    }
 }

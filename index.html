@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traductor con Voz</title>
+    <title>Traductor con Voz Pro</title>
     <link rel="stylesheet" href="style.css">
     
- <!-- Enlace para fuentes de google -->
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&displayfamily=Amatic+SC:wght@700&family=Caveat:wght@700&family=Dancing+Script:wght@700&family=Lobster&family=Metal+Mania&family=Yellowtail& family=Permanent+Marker&family=Piedra&family=Sriracha&display=swap" rel="stylesheet">
-  
+    <!-- Enlace para fuentes de google -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&displayfamily=Amatic+SC:wght@700&family=Caveat:wght@700&family=Dancing+Script:wght@700&family=Lobster&family=Metal+Mania&family=Yellowtail&family=Permanent+Marker&family=Piedra&family=Sriracha&display=swap" rel="stylesheet">
 </head>
 <body>
+     <!-- Contenedor principal que hereda el estilo cristal del CSS -->
      <div class="translator-container">
         <h2><u><i><img src="img/Juanjo.ico" class="ico" width="35">Traductor de Idiomas</i></u></h2>
 
@@ -54,8 +54,7 @@
 
         <div class="text-areas">
             <div class="textarea-group input-group">
-                <textarea id="inputText" placeholder="Escribe o dicta el texto a traducir..." maxlength="1000"></textarea>
-                <div class="char-counter"><span id="charCount">0</span>/1000</div>
+                <textarea id="inputText" placeholder="Escribe aquí y pulsa Intro para traducir..." maxlength="1000"></textarea>
                 <button id="startRecognition" title="Empezar a Escuchar">🎤</button>
             </div>
             <div class="textarea-group output-group">
@@ -63,7 +62,6 @@
                 <div class="output-actions">
                     <button id="favOutput" title="Guardar en Favoritos">⭐</button>
                     <button id="copyOutput" title="Copiar Traducción">📋</button>
-                    <button id="shareOutput" title="Compartir Traducción">🔗</button>
                     <button id="speakOutput" title="Escuchar Traducción">🔊</button>
                 </div>
             </div>
@@ -74,19 +72,22 @@
             <button id="clearButton">Limpiar Texto</button>
         </div>
 
-        <!-- Sección de Historial y Favoritos (Movida arriba cerca de los botones) -->
         <div class="storage-section">
             <div class="storage-header">
                 <button id="showHistory" class="active">Historial</button>
                 <button id="showFavorites">Favoritos</button>
             </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchStorage" placeholder="Buscar en la lista...">
+            </div>
+
             <div id="storageList" class="storage-list">
-                <!-- Se carga dinámicamente -->
+                <!-- Se carga dinámicamente mediante JS -->
             </div>
             <button id="clearStorage" class="clear-storage-btn">Borrar Todo</button>
         </div>
         
-        <!-- Mensajes de estado al final -->
         <p id="statusMessage"></p>
         <p id="micStatus" class="mic-status"></p>
     </div>

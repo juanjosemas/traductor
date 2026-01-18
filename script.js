@@ -2,14 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DEL DOM ---
     const inputText = document.getElementById('inputText');
     const outputText = document.getElementById('outputText');
-    const charCount = document.getElementById('charCount');
     const sourceLang = document.getElementById('sourceLang');
     const targetLang = document.getElementById('targetLang');
     const translateButton = document.getElementById('translateButton');
     const clearButton = document.getElementById('clearButton');
     const swapLanguagesButton = document.getElementById('swapLanguages');
-    const copyOutputButton = document.getElementById('copyOutput');
-    const shareOutputButton = document.getElementById('shareOutput');
+    const copyOutputButton = document.getElementById('copyOutput'); // Corregido: Variable definida
     const favOutputButton = document.getElementById('favOutput');
     const statusMessage = document.getElementById('statusMessage');
     const startRecognitionButton = document.getElementById('startRecognition');
@@ -21,38 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const showFavoritesBtn = document.getElementById('showFavorites');
     const storageList = document.getElementById('storageList');
     const clearStorageBtn = document.getElementById('clearStorage');
+    const searchStorage = document.getElementById('searchStorage');
 
     // --- VARIABLES DE ESTADO ---
     let currentView = 'history'; 
     let history = JSON.parse(localStorage.getItem('traductor_history')) || [];
     let favorites = JSON.parse(localStorage.getItem('traductor_favorites')) || [];
 
-    // --- CONFIGURACIÓN DE VOZ ---
+    // --- RECONOCIMIENTO DE VOZ ---
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const speechSynthesis = window.speechSynthesis;
     let recognition;
 
-    // --- RECONOCIMIENTO DE VOZ ---
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
         recognition.onstart = () => {
             micStatus.textContent = 'Escuchando... 🎤';
             startRecognitionButton.classList.add('listening');
-            startRecognitionButton.disabled = true;
         };
         recognition.onresult = (event) => {
             inputText.value = event.results[0][0].transcript;
-            charCount.textContent = inputText.value.length;
             translateText();
-        };
-        recognition.onerror = () => {
-            micStatus.textContent = 'Error de micrófono.';
-            setTimeout(() => micStatus.textContent = '', 3000);
         };
         recognition.onend = () => {
             micStatus.textContent = '';
             startRecognitionButton.classList.remove('listening');
-            startRecognitionButton.disabled = false;
         };
         startRecognitionButton.addEventListener('click', () => {
             recognition.lang = sourceLang.value;
@@ -83,31 +73,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusMessage.textContent = 'Traducción completada.';
                 favOutputButton.classList.remove('active');
                 
-                // Guardar en historial
                 addToHistory(text, outputText.value);
             }
         } catch (e) {
             statusMessage.textContent = 'Error de conexión.';
         } finally {
             translateButton.disabled = false;
-            setTimeout(() => statusMessage.textContent = '', 3000);
+            setTimeout(() => statusMessage.textContent = '', 2000);
         }
     }
 
     // --- GESTIÓN DE ALMACENAMIENTO ---
     function addToHistory(original, translated) {
-        // Evitar duplicados consecutivos
-        if (history.length > 0 && history[0].original === original && history[0].translated === translated) return;
-
+        if (history.length > 0 && history[0].original === original) return;
         const item = { original, translated, id: Date.now() };
         history.unshift(item);
-        if (history.length > 10) history.pop(); 
+        if (history.length > 20) history.pop(); 
         saveAndRender();
     }
 
+    window.deleteItem = (id) => {
+        if (currentView === 'history') {
+            history = history.filter(i => i.id !== id);
+        } else {
+            favorites = favorites.filter(i => i.id !== id);
+        }
+        saveAndRender();
+    };
+
+    window.copyItem = (text) => {
+        navigator.clipboard.writeText(text);
+        statusMessage.textContent = '¡Copiado!';
+        setTimeout(() => statusMessage.textContent = '', 1500);
+    };
+
     function toggleFavorite() {
         if (!outputText.value) return;
-        
         const exists = favorites.find(f => f.translated === outputText.value);
         if (exists) {
             favorites = favorites.filter(f => f.translated !== outputText.value);
@@ -128,105 +129,117 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderStorage() {
         storageList.innerHTML = '';
         const list = currentView === 'history' ? history : favorites;
-        
-        if (list.length === 0) {
-            storageList.innerHTML = `<div style="text-align:center; padding:10px; color:#888; font-style:italic;">Lista vacía</div>`;
+        const query = (searchStorage.value || '').toLowerCase();
+
+        const filtered = list.filter(item => 
+            item.original.toLowerCase().includes(query) || 
+            item.translated.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+            storageList.innerHTML = `<div style="text-align:center; padding:10px; color:#666;">No hay resultados</div>`;
             return;
         }
 
-        list.forEach(item => {
+        filtered.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'storage-item';
-            div.innerHTML = `<div><b>${item.original}</b> <br> <span>${item.translated}</span></div>`;
-            div.onclick = () => {
-                inputText.value = item.original;
-                outputText.value = item.translated;
-                charCount.textContent = inputText.value.length;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
+            div.className = 'storage-item'; // Usa la clase de tu CSS nuevo
+            div.innerHTML = `
+                <div class="item-text" onclick="loadItem(${item.id})">
+                    <b>${item.original}</b>
+                    <span>${item.translated}</span>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-copy" onclick="event.stopPropagation(); copyItem('${item.translated}')" title="Copiar">📋</button>
+                    <button class="btn-del" onclick="event.stopPropagation(); deleteItem(${item.id})" title="Eliminar">🗑️</button>
+                </div>
+            `;
             storageList.appendChild(div);
         });
     }
 
-    // --- EVENT LISTENERS ---
+    window.loadItem = (id) => {
+        const list = currentView === 'history' ? history : favorites;
+        const item = list.find(i => i.id === id);
+        if (item) {
+            inputText.value = item.original;
+            outputText.value = item.translated;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    // --- FUNCIONES DE VOZ ---
+    function speak(text, lang) {
+        // Usamos window.speechSynthesis directamente para evitar errores de undefined
+        if (window.speechSynthesis) {
+            if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+            const ut = new SpeechSynthesisUtterance(text);
+            ut.lang = lang;
+            window.speechSynthesis.speak(ut);
+        }
+    }
+
+    // --- EVENTOS ---
+    searchStorage.addEventListener('input', renderStorage);
+    
+    // Intro para traducir y esconder teclado
+    inputText.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); 
+            inputText.blur();   
+            translateText();    
+        }
+    });
+    
     translateButton.addEventListener('click', translateText);
     
     clearButton.addEventListener('click', () => {
-        inputText.value = '';
+        inputText.value = ''; 
         outputText.value = '';
-        charCount.textContent = '0';
-        favOutputButton.classList.remove('active');
-        statusMessage.textContent = '';
-        if (speechSynthesis.speaking) speechSynthesis.cancel();
+        // Corrección del error: Verificar si el navegador soporta voz y si está hablando
+        if (window.speechSynthesis && window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        }
     });
 
     swapLanguagesButton.addEventListener('click', () => {
-        const tempL = sourceLang.value;
-        sourceLang.value = targetLang.value;
-        targetLang.value = tempL;
-        const tempT = inputText.value;
-        inputText.value = outputText.value;
-        outputText.value = tempT;
-        charCount.textContent = inputText.value.length;
+        const tempL = sourceLang.value; sourceLang.value = targetLang.value; targetLang.value = tempL;
+        const tempT = inputText.value; inputText.value = outputText.value; outputText.value = tempT;
     });
 
     copyOutputButton.addEventListener('click', () => {
-        if (outputText.value) {
-            navigator.clipboard.writeText(outputText.value);
-            statusMessage.textContent = '¡Copiado!';
-            setTimeout(() => statusMessage.textContent = '', 2000);
-        }
-    });
-
-    shareOutputButton.addEventListener('click', async () => {
-        if (navigator.share && outputText.value) {
-            await navigator.share({ title: 'Traducción', text: outputText.value });
-        }
+        if (outputText.value) copyItem(outputText.value);
     });
 
     favOutputButton.addEventListener('click', toggleFavorite);
 
     showHistoryBtn.addEventListener('click', () => {
         currentView = 'history';
-        showHistoryBtn.classList.add('active');
+        showHistoryBtn.classList.add('active'); 
         showFavoritesBtn.classList.remove('active');
         renderStorage();
     });
 
     showFavoritesBtn.addEventListener('click', () => {
         currentView = 'favorites';
-        showFavoritesBtn.classList.add('active');
+        showFavoritesBtn.classList.add('active'); 
         showHistoryBtn.classList.remove('active');
         renderStorage();
     });
 
     clearStorageBtn.addEventListener('click', () => {
-        if (confirm('¿Borrar toda la lista?')) {
-            if (currentView === 'history') history = [];
-            else favorites = [];
+        if (confirm('¿Borrar lista?')) {
+            if (currentView === 'history') history = []; else favorites = [];
             saveAndRender();
         }
     });
 
-    inputText.addEventListener('input', () => charCount.textContent = inputText.value.length);
-    
-    inputText.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            inputText.blur();
-            translateText();
+    speakOutputButton.addEventListener('click', () => {
+        if (outputText.value) {
+            speak(outputText.value, targetLang.value);
         }
     });
 
-    speakOutputButton.addEventListener('click', () => {
-        if (!outputText.value) return;
-        if (speechSynthesis.speaking) speechSynthesis.cancel();
-        const ut = new SpeechSynthesisUtterance(outputText.value);
-        ut.lang = targetLang.value;
-        ut.onstart = () => speakOutputButton.classList.add('speaking');
-        ut.onend = () => speakOutputButton.classList.remove('speaking');
-        speechSynthesis.speak(ut);
-    });
-
+    // Cargar historial al inicio
     renderStorage();
 });
