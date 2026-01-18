@@ -127,8 +127,9 @@ textarea {
     border-radius: 20px;
     resize: none;
     box-sizing: border-box; /* Muy importante: incluye el padding en el ancho total */
-    font-size: 1.3em;
+    font-size: 1em;
     font-family: Piedra, cursive;
+    font-style: italic;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(4px);
     outline: none;
