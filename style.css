@@ -92,7 +92,7 @@ select {
 
 /* Botón de flechas (Intercambiar) */
 #swapLanguages {
-    padding: 0px;
+    padding-bottom: 5px;
     width: 50px; 
     height: 40px; 
     font-weight: 900;
@@ -120,9 +120,9 @@ select {
 textarea {
     /* Ocupa el 100% del ancho del grupo */
     width: 100%;
-    height: 120px;  /* ANTES 180px - Reducido para que la caja sea más pequeña */
+    height: 120px;  /* Actualizado según tu preferencia */
     padding: 15px;
-    padding-bottom: 60px; /* Espacio para que los botones de abajo no tapen el texto */
+    padding-bottom: 50px; /* Reducido un poco para ajustarse al nuevo tamaño de botones */
     border: 1px solid rgba(255,255,255,0.4);
     border-radius: 20px;
     resize: none;
@@ -140,13 +140,16 @@ textarea {
     position: absolute;
     background: white;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 35px;  /* ANTES 45px - Reducido para que el círculo sea más pequeño */
+    height: 35px; /* ANTES 45px - Reducido para que el círculo sea más pequeño */
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     bottom: 10px;
+    font-size: 18px; /* Tamaño de icono ajustado al nuevo círculo */
+    border: none; /* Aseguramos que no tenga bordes extra */
+    cursor: pointer;
 }
 
 #startRecognition { right: 10px; color: #007bff; }
@@ -171,12 +174,13 @@ textarea {
 }
 
 #translateButton, #clearButton {
-    width: 280px; /* Un poco más anchos para el P30 Pro */
+    width: 150px; /* Un poco más anchos para el P30 Pro */
     padding: 12px;
     border-radius: 40px;
     font-size: 1.6em; 
     font-family: Yellowtail;
     border: none;
+    border: 1px solid black;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 #translateButton { background-color: black; color: white; }
@@ -279,6 +283,7 @@ textarea {
 
 /* Botón rojo de borrar lista */
 .clear-storage-btn {
+    width: 160px;
     display: block;
     margin: 20px auto 0;
     padding: 10px 40px;
@@ -286,7 +291,7 @@ textarea {
     color: black;
     border-radius: 20px;
     font-family: Piedra;
-    font-size: 20px;
+    font-size: 18px;
     font-style: italic;
     border: 1px solid black;
 }
