@@ -28,7 +28,7 @@ body {
 .translator-container {
     width: 96%; 
     max-width: 1200px;
-    margin: -35px auto;
+    margin: 0 auto;
 }
 
 /* --- 3. TÍTULO E ICONO --- */
@@ -80,13 +80,13 @@ h2 {
 }
 
 select {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.7);
     width: 50%;
     font-family: Lobster, cursive;
-    font-size: 18px;
+    font-size: 16px;
     outline: none;
 }
 
@@ -183,7 +183,7 @@ textarea {
     border: 1px solid black;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-#translateButton { background-color: black; color: white; }
+#translateButton { background-color: green; color: white; }
 #clearButton { background-color: #6c757d; color: white; }
 
 /* --- 8. SECCIÓN DE HISTORIAL Y FAVORITOS --- */
